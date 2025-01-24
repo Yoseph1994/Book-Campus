@@ -2,7 +2,6 @@ interface Book {
   id: number;
   title: string;
   author: string;
-  cover: string;
   genre: string;
   rating: number;
   totalCopies: number;
@@ -12,4 +11,5 @@ interface Book {
   coverImage: string;
   videoUrl: string;
   summary: string;
+  isLoanedBook?: boolean;
 }
