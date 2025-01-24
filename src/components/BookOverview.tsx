@@ -5,10 +5,10 @@ import { Button } from "./ui/button";
 import BookCover from "./BookCover";
 
 function BookOverview({
-  id,
+  //   id,
   title,
   author,
-  cover,
+  //   cover,
   genre,
   rating,
   totalCopies,
@@ -16,9 +16,9 @@ function BookOverview({
   description,
   coverColor,
   coverImage,
-  videoUrl,
-  summary,
-}: Book) {
+}: //   videoUrl,
+//   summary,
+Book) {
   return (
     <section className="book-overview">
       <div className="flex flex-1 flex-col gap-5">
