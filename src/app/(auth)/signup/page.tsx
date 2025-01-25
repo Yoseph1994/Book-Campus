@@ -1,7 +1,22 @@
+import AuthForm from "@/components/AuthForm";
+import { signUpSchema } from "@/lib/validations";
 import React from "react";
 
-function SignUp() {
-  return <div>SignUp</div>;
+function SignIn() {
+  return (
+    <AuthForm
+      type="SIGN_UP"
+      schema={signUpSchema}
+      defaultValues={{
+        email: "",
+        password: "",
+        fullName: "",
+        universityId: 0,
+        universityCard: "",
+      }}
+      onSubmit={() => {}}
+    />
+  );
 }
 
-export default SignUp;
+export default SignIn;
