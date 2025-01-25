@@ -13,6 +13,16 @@ function layout({ children }: { children: React.ReactNode }) {
           <div className="">{children}</div>
         </div>
       </section>
+
+      <section className="auth-illustration">
+        <Image
+          src="/images/auth-illustration.png"
+          height={1000}
+          width={1000}
+          alt="auth-illustration"
+          className="size-full object-cover"
+        />
+      </section>
     </main>
   );
 }
