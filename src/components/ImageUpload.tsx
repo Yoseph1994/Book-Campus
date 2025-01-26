@@ -18,6 +18,8 @@ function ImageUpload({
 }) {
   const ikUploadRef = useRef<HTMLInputElement>(null);
   const [file, setFile] = useState<{ filePath: string } | null>(null);
+  const [loading, setLoading] = useState(false);
+
   const authenticator = async () => {
     try {
       const res = await fetch(`${config.env.apiEndPoint}/api/auth/imagekit`);
@@ -36,40 +38,30 @@ function ImageUpload({
     }
   };
 
-  // interface AuthResponse {
-  //   signature: string;
-  //   token: string;
-  //   expire: number;
-  // }
-
-  // interface FileResponse {
-  //   filePath: string;
-  // }
-
-  // interface ImageUploadProps {
-  //   onFileChange: (file: string) => void;
-  // }
-
   interface ErrorResponse {
     message: string;
   }
 
   const onError = (error: ErrorResponse) => {
     console.log("Error uploading file", error);
+    setLoading(false);
     toast({
       title: "File Upload Failed",
       description: "Please try again later",
       variant: "destructive",
     });
   };
+
   const onSuccess = (res: { filePath: string }) => {
     setFile(res);
+    setLoading(false);
     onFileChange(res.filePath);
     toast({
       title: "File Uploaded",
       description: `${res.filePath} uploaded successfully`,
     });
   };
+
   return (
     <ImageKitProvider
       publicKey={publicKey}
@@ -82,6 +74,7 @@ function ImageUpload({
         onError={onError}
         onSuccess={onSuccess}
         fileName="test-upload.png"
+        onUploadStart={() => setLoading(true)}
       />
       <button
         className="upload-btn"
@@ -102,12 +95,20 @@ function ImageUpload({
         <p className="text-base text-light-100">Upload a File</p>
         {file && <p className="upload-filename">{file.filePath}</p>}
       </button>
-      <IKImage
-        alt={file?.filePath || "Uploaded File"}
-        path={file?.filePath || ""}
-        height={200}
-        width={500}
-      />
+      {loading ? (
+        <div className="flex justify-center items-center h-64">
+          <div className="spinner"></div>
+        </div>
+      ) : (
+        file && (
+          <IKImage
+            alt={file?.filePath || "Uploaded File"}
+            path={file?.filePath || ""}
+            height={200}
+            width={500}
+          />
+        )
+      )}
     </ImageKitProvider>
   );
 }
