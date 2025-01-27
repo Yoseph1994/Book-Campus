@@ -5,7 +5,7 @@ import { usersTable } from "@/database/schema";
 import { hash } from "bcryptjs";
 import { eq } from "drizzle-orm";
 
-const signUp = async (params: AuthCredentials) => {
+export const signUp = async (params: AuthCredentials) => {
   const { fullName, email, password, universityCard, universityId } = params;
 
   const user = await db
