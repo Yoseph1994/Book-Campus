@@ -39,7 +39,7 @@ export const signUp = async (params: AuthCredentials) => {
     .limit(1);
 
   if (user.length > 0) {
-    return { succes: false, error: "User already exists" };
+    return { success: false, error: "User already exists" };
   }
 
   const hashedPassword = await hash(password, 10);
@@ -52,10 +52,10 @@ export const signUp = async (params: AuthCredentials) => {
       universityCard,
       universityId,
     });
-    return { succes: true };
+    return { success: true };
   } catch (error) {
     console.log(error, "SignUP Error");
-    return { succes: false, error: "Signup error" };
+    return { success: false, error: "Signup error" };
   }
 };
 
