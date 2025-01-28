@@ -1,5 +1,10 @@
 "use server";
+<<<<<<< HEAD
 import { signIn } from "@/auth";
+=======
+
+import { signIn, signOut } from "@/auth";
+>>>>>>> ba6e8db5c2c8cc2a0e594bd1287fd3535fddb94d
 import { db } from "@/database/drizzle";
 import { usersTable } from "@/database/schema";
 import { hash } from "bcryptjs";
@@ -57,3 +62,10 @@ export const signUp = async (params: AuthCredentials) => {
     return { success: false, error: "Signup error" };
   }
 };
+<<<<<<< HEAD
+=======
+
+export async function signOutFn() {
+  await signOut();
+}
+>>>>>>> ba6e8db5c2c8cc2a0e594bd1287fd3535fddb94d

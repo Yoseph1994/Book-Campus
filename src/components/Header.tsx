@@ -4,7 +4,21 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+<<<<<<< HEAD
 
+=======
+import { Button } from "./ui/button";
+import { signOutFn } from "@/lib/actions/auth";
+
+interface Session {
+  user?: {
+    email?: string;
+    id?: string;
+  };
+  expires?: string;
+}
+
+>>>>>>> ba6e8db5c2c8cc2a0e594bd1287fd3535fddb94d
 export default function Header({ session }: { session: Session }) {
   const path = usePathname();
   return (
@@ -44,6 +58,14 @@ export default function Header({ session }: { session: Session }) {
               </AvatarFallback>
             </Avatar>
           </Link>
+<<<<<<< HEAD
+=======
+        </li>
+        <li>
+          <Button onClick={signOutFn} className="text-base">
+            Sign Out
+          </Button>
+>>>>>>> ba6e8db5c2c8cc2a0e594bd1287fd3535fddb94d
         </li>
       </ul>
     </header>
