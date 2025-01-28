@@ -4,6 +4,7 @@ import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { SessionProvider } from "next-auth/react";
 import { auth } from "@/auth";
+import { redirect } from "next/navigation";
 
 const ibmPlexSans = localFont({
   src: [
@@ -48,6 +49,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const session = await auth();
+  if (!session) redirect("/signin");
   return (
     <html lang="en">
       <SessionProvider session={session}>
