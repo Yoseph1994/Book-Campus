@@ -3,7 +3,10 @@ import { cn, getInitialNameFromSession } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Button } from "./ui/button";
+import { signOutFn } from "@/lib/actions/auth";
+
 interface Session {
   user?: {
     email?: string;
@@ -11,12 +14,11 @@ interface Session {
   };
   expires?: string;
 }
+
 export default function Header({ session }: { session: Session }) {
   const path = usePathname();
-  console.log(getInitialNameFromSession(session));
-  console.log(session);
   return (
-    <header className="my-10 flex justify-between gap-5">
+    <header className="my-10 flex justify-between items-center gap-5">
       <Link href="/">
         <Image src="/icons/logo.svg" alt="logo" width={40} height={40} />
       </Link>
@@ -25,7 +27,7 @@ export default function Header({ session }: { session: Session }) {
           <Link
             href="/library"
             className={cn(
-              "text-base curspor-pointer capitalize",
+              "text-base cursor-pointer capitalize",
               path === "/library" ? "text-light-200" : "text-light-100"
             )}
           >
@@ -33,17 +35,30 @@ export default function Header({ session }: { session: Session }) {
           </Link>
         </li>
         <li>
-          <Link href="profile">
+          <Link
+            href="/authors"
+            className={cn(
+              "text-base cursor-pointer capitalize",
+              path === "/authors" ? "text-light-200" : "text-light-100"
+            )}
+          >
+            Authors
+          </Link>
+        </li>
+        <li>
+          <Link href="/profile">
             <Avatar>
               {/* <AvatarImage src="https://github.com/shadcn.png" /> */}
-              <AvatarFallback className="bg-amber-100 text-gray-500">
+              <AvatarFallback className="text-black">
                 {getInitialNameFromSession(session)}
               </AvatarFallback>
             </Avatar>
           </Link>
         </li>
         <li>
-          <Link href="/authors">Authors</Link>
+          <Button onClick={signOutFn} className="text-base">
+            Sign Out
+          </Button>
         </li>
       </ul>
     </header>

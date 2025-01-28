@@ -1,6 +1,6 @@
 "use server";
 
-import { signIn } from "@/auth";
+import { signIn, signOut } from "@/auth";
 import { db } from "@/database/drizzle";
 import { usersTable } from "@/database/schema";
 import { hash } from "bcryptjs";
@@ -59,4 +59,6 @@ export const signUp = async (params: AuthCredentials) => {
   }
 };
 
-// 2.37
+export async function signOutFn() {
+  await signOut();
+}

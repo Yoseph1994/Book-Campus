@@ -21,3 +21,11 @@ interface AuthCredentials {
   universityId: number;
   universityCard: string;
 }
+
+interface Session {
+  user?: {
+    email?: string;
+    id?: string;
+  };
+  expires?: string;
+}
