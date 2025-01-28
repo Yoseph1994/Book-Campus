@@ -49,7 +49,6 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const session = await auth();
-  if (!session) redirect("/signin");
   return (
     <html lang="en">
       <SessionProvider session={session}>

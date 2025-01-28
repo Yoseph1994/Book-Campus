@@ -1,5 +1,4 @@
 "use server";
-
 import { signIn } from "@/auth";
 import { db } from "@/database/drizzle";
 import { usersTable } from "@/database/schema";
@@ -58,5 +57,3 @@ export const signUp = async (params: AuthCredentials) => {
     return { success: false, error: "Signup error" };
   }
 };
-
-// 2.37
