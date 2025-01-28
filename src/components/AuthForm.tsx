@@ -22,7 +22,10 @@ import {
 import { Input } from "./ui/input";
 import Link from "next/link";
 import { FIELD_NAMES, FIELD_TYPES } from "@/constants";
+import { useRouter } from "next/navigation";
 import ImageUpload from "./ImageUpload";
+import { toast } from "@/hooks/use-toast";
+import { useState } from "react";
 
 interface Props<T extends FieldValues> {
   schema: ZodType<T>;
@@ -37,6 +40,8 @@ const AuthForm = <T extends FieldValues>({
   defaultValues,
   onSubmit,
 }: Props<T>) => {
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
   const isSignIn = type === "SIGN_IN";
   const form: UseFormReturn<T> = useForm({
     resolver: zodResolver(schema),
@@ -44,8 +49,27 @@ const AuthForm = <T extends FieldValues>({
   });
 
   const handleSubmit: SubmitHandler<T> = async (data) => {
-    onSubmit(data);
-    console.log(data);
+    setLoading(true);
+    const result = await onSubmit(data);
+    setLoading(false);
+    if (result?.success) {
+      toast({
+        title: "Success",
+        description: isSignIn
+          ? "Succesfully Signed In"
+          : "Succesfully Registered",
+      });
+
+      router.push("/dashboard");
+    }
+
+    if (result?.error) {
+      toast({
+        title: isSignIn ? "Error Signing In" : "Error Signing Up",
+        description: result?.error || "Failed Authenticating",
+        variant: "destructive",
+      });
+    }
   };
   return (
     <div className="flex flex-col gap-4">
@@ -93,7 +117,7 @@ const AuthForm = <T extends FieldValues>({
           ))}
 
           <Button type="submit" className="form-btn">
-            {isSignIn ? "Sign in" : "Sign Up"}
+            {loading ? "Loading..." : isSignIn ? "Sign in" : "Sign Up"}
           </Button>
         </form>
       </Form>
