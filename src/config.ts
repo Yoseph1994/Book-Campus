@@ -7,5 +7,9 @@ export const config = {
       privateKey: process.env.IMAGE_KIT_PRIVATE_KEY!,
       urlEndpoint: process.env.NEXT_PUBLIC_IMAGE_KIT_URL!,
     },
+    upstash: {
+      redisUrl: process.env.UPSTASH_REDIS_URL!,
+      redisToken: process.env.UPSTASH_REDIS_TOKEN!,
+    },
   },
 };
