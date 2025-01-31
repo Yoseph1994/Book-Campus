@@ -28,9 +28,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         );
 
         if (!isPasswordValid) return null;
-
+        console.log(user[0]);
         return {
           id: user[0].id,
+          name: user[0].fullName,
           email: user[0].email,
           role: user[0].role,
         } as User;
@@ -43,6 +44,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       if (user) {
         token.id = user.id;
         token.name = user.name;
+        token.email = user.email;
       }
       return token;
     },
@@ -50,6 +52,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       if (session.user) {
         session.user.id = token.id as string;
         session.user.name = token.name as string;
+        session.user.email = token.email as string;
       }
       return session;
     },
