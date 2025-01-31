@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-
+import { Session } from "next-auth";
 export default function Header({ session }: { session: Session }) {
   const path = usePathname();
   return (
